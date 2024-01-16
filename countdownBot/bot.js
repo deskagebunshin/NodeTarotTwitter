@@ -29,27 +29,27 @@ const tweet = async (text, imgUrl) => {
     }
 };
 
-const replyTweet = async (text, imgUrl) => {
-  try{
-      const result = await client.v2.get('tweets/search/recent', { query: 'tarot deck', max_results: 40 }).then();
-      console.log(result.data);
+// const replyTweet = async (text, imgUrl) => {
+//   try{
+//       const result = await client.v2.get('tweets/search/recent', { query: 'tarot deck', max_results: 40 }).then();
+//       console.log(result.data);
 
-      const mediaId = await client.v1.uploadMedia(path.join(__dirname, imgUrl));
+//       const mediaId = await client.v1.uploadMedia(path.join(__dirname, imgUrl));
       
-      for (let i = 0; i < result.data.length; i++) {
-        try {
-          await client.v2.reply(text, result.data[i].id, {media: { media_ids: [mediaId] }});
-          console.log("success!");
-        }
-        catch(err) {
-          console.log(err);
-        }
-      }
+//       for (let i = 0; i < result.data.length; i++) {
+//         try {
+//           await client.v2.reply(text, result.data[i].id, {media: { media_ids: [mediaId] }});
+//           console.log("success!");
+//         }
+//         catch(err) {
+//           console.log(err);
+//         }
+//       }
 
-  }catch (error){
-      console.log(error);
-  }
-};
+//   }catch (error){
+//       console.log(error);
+//   }
+// };
 
 var Cards = [];
 function LoadData (){
@@ -108,12 +108,12 @@ async function GetGPTHaiku(card){
       });
       var text = completion.data.choices[0].text;
       console.log(text);
-      var imgUrl = "../images/JPEG/"+card.Suite.toLowerCase() +"_"+ card.Number + ".jpg";
-      if(text.length < 270) text += " #CyberTarot"
-      if(text.length < 270) text += " #DigitalOccult"
+      var imgUrl = "../images/JPEG/"+card.Suite.toLowerCase() +"_"+ card.Number + ".png";
+      if(text.length < 270) text += " #CypherMash";
+      if(text.length < 270) text += " #Cypherscape";
 
       tweet(text,imgUrl);
-      replyTweet(text, imgUrl)
+      //replyTweet(text, imgUrl)
 }
 
 
